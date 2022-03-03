@@ -7,6 +7,10 @@ import "dart:io";
 import '../model/api/api_response.dart';
 
 class CatViewModel with ChangeNotifier {
+  late final CatRepository _catRepository;
+
+  CatViewModel(this._catRepository);
+
   ApiResponse _apiResponse = ApiResponse.initial("Fetching data");
 
   ApiResponse get response {
@@ -14,7 +18,7 @@ class CatViewModel with ChangeNotifier {
   }
 
   void set() {
-    this._apiResponse = ApiResponse.initial("Re fetching data");
+    _apiResponse = ApiResponse.initial("Re fetching data");
     notifyListeners();
   }
 
@@ -22,7 +26,7 @@ class CatViewModel with ChangeNotifier {
     _apiResponse = ApiResponse.loading('Fetching artist data');
     notifyListeners();
     try {
-      final cat = await CatRepository().fetchCatGift();
+      final cat = await _catRepository.fetchCatGift();
       _apiResponse = ApiResponse.completed(cat);
     } catch (e) {
       _apiResponse = ApiResponse.error(e.toString());

@@ -1,3 +1,4 @@
+import 'package:cat_gif_app/model/cat_repository.dart';
 import 'package:cat_gif_app/screens/home_screen.dart';
 import 'package:cat_gif_app/viewmodel/cat_view_model.dart';
 import 'package:flutter/material.dart';
@@ -15,9 +16,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider.value(value: CatViewModel())],
+      providers: [
+        ChangeNotifierProvider.value(value: CatViewModel(CatRepository()))
+      ],
       child: MaterialApp(
-        title: 'Cat Gift App',
+        title: 'Cat Gif App',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),

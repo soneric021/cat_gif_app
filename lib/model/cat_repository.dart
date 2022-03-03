@@ -5,7 +5,7 @@ class CatRepository {
   final CatService _catService = CatService();
 
   Future<Cat> fetchCatGift() async {
-    var response = await _catService.get("/cat/gif?json=true");
+    var response = await _catService.getResponse("/cat/gif?json=true");
     Cat jsonData = Cat.fromJson(response);
     return jsonData;
   }

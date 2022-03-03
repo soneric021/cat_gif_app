@@ -26,8 +26,8 @@ class _HomeScreenState extends State<HomeScreen> {
         return Center(
           child: CachedNetworkImage(
               imageUrl: _baseUrl + _cat.url,
-              placeholder: (context, url) => CircularProgressIndicator(),
-              errorWidget: (context, url, error) => Icon(Icons.error)),
+              placeholder: (context, url) => const CircularProgressIndicator(),
+              errorWidget: (context, url, error) => const Icon(Icons.error)),
         );
       case Status.ERROR:
         return const Center(
@@ -45,18 +45,24 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     ApiResponse _apiResponse = Provider.of<CatViewModel>(context).response;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Cat GIFF APP"),
+      body: Container(
+        constraints: const BoxConstraints.expand(),
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("images/background.jpg"), fit: BoxFit.cover)),
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          getCatGift(context, _apiResponse),
+          Container(
+            margin: const EdgeInsets.only(top: 10),
+            child: ElevatedButton(
+              onPressed: () => {
+                Provider.of<CatViewModel>(context, listen: false).fetchCatData()
+              },
+              child: const Text('Meow!'),
+            ),
+          )
+        ]),
       ),
-      body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        getCatGift(context, _apiResponse),
-        ElevatedButton(
-          onPressed: () => {
-            Provider.of<CatViewModel>(context, listen: false).fetchCatData()
-          },
-          child: const Text('Meow!'),
-        )
-      ]),
     );
   }
 }

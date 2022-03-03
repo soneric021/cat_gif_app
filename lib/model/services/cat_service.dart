@@ -6,8 +6,10 @@ import 'package:http/http.dart' as http;
 import '../api/custom_exception.dart';
 
 class CatService extends BaseService {
-  static String _baseUrl = "https://cataas.com";
-  Future get(String url) async {
+  final String _baseUrl = "https://cataas.com";
+  
+  @override
+  Future getResponse(String url) async {
     dynamic responseJson;
     try {
       String finalurl = _baseUrl + url;
@@ -39,9 +41,5 @@ class CatService extends BaseService {
     }
   }
 
-  @override
-  Future getResponse(String url) {
-    // TODO: implement getResponse
-    throw UnimplementedError();
-  }
+  
 }
