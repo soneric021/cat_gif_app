@@ -7,14 +7,13 @@ import '../api/custom_exception.dart';
 
 class CatService extends BaseService {
   final String _baseUrl = "https://cataas.com";
-  
+
   @override
   Future getResponse(String url) async {
     dynamic responseJson;
     try {
       String finalurl = _baseUrl + url;
       final response = await http.get(Uri.parse(finalurl));
-      print(response);
       responseJson = returnResponse(response);
     } on SocketException {
       throw FetchDataException('No Internet Connection');
@@ -40,6 +39,4 @@ class CatService extends BaseService {
                 ' with status code : ${response.statusCode}');
     }
   }
-
-  
 }

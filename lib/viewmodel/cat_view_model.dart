@@ -1,23 +1,23 @@
 import 'package:cat_gif_app/model/base_repository.dart';
-import 'package:cat_gif_app/model/cat.dart';
-import 'package:cat_gif_app/model/cat_repository.dart';
-import 'package:cat_gif_app/model/services/cat_service.dart';
 import 'package:flutter/cupertino.dart';
-import "dart:io";
 
 import '../injection_container.dart';
 import '../model/api/api_response.dart';
 
 class CatViewModel with ChangeNotifier {
-  final BaseRepository _catRepository = sl<BaseRepository>();
+  BaseRepository _catRepository = sl<BaseRepository>();
 
   ApiResponse _apiResponse = ApiResponse.initial("Fetching data");
+
+  void setRepository(BaseRepository repo) {
+    _catRepository = repo;
+  }
 
   ApiResponse get response {
     return _apiResponse;
   }
 
-  void set() {
+  void updateGif() {
     _apiResponse = ApiResponse.initial("Re fetching data");
     notifyListeners();
   }
