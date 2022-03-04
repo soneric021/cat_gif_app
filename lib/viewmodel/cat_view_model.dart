@@ -1,15 +1,15 @@
+import 'package:cat_gif_app/model/base_repository.dart';
 import 'package:cat_gif_app/model/cat.dart';
 import 'package:cat_gif_app/model/cat_repository.dart';
 import 'package:cat_gif_app/model/services/cat_service.dart';
 import 'package:flutter/cupertino.dart';
 import "dart:io";
 
+import '../injection_container.dart';
 import '../model/api/api_response.dart';
 
 class CatViewModel with ChangeNotifier {
-  late final CatRepository _catRepository;
-
-  CatViewModel(this._catRepository);
+  final BaseRepository _catRepository = sl<BaseRepository>();
 
   ApiResponse _apiResponse = ApiResponse.initial("Fetching data");
 
@@ -31,7 +31,6 @@ class CatViewModel with ChangeNotifier {
     } catch (e) {
       _apiResponse = ApiResponse.error(e.toString());
       print(e);
-      print("AQUI");
     }
     notifyListeners();
   }
