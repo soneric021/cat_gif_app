@@ -4,6 +4,8 @@ This is an app to view beautiful cat gif, when you hit the "Meow" button, show a
 
 ## Getting Started
 
+This app is made with MVVM architecture, GET_IT and one library for images cached_network_image.
+
 git clone the application and run the "flutter run" in the commanda palette, pick your android emulator, and that's it.
 
 
