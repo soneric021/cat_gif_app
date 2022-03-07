@@ -1,4 +1,4 @@
-import 'package:cat_gif_app/injection_container.dart';
+import 'package:cat_gif_app/di/injection_container.dart';
 import 'package:cat_gif_app/model/Cat.dart';
 import 'package:cat_gif_app/model/api/api_response.dart';
 import 'package:cat_gif_app/model/base_repository.dart';

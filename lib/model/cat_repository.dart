@@ -1,7 +1,9 @@
-import 'package:cat_gif_app/injection_container.dart';
+import 'package:cat_gif_app/di/injection_container.dart';
 import 'package:cat_gif_app/model/Cat.dart';
 import 'package:cat_gif_app/model/base_repository.dart';
 import 'package:cat_gif_app/model/services/base_service.dart';
+
+import '../di/injection_container.dart';
 
 class CatRepository extends BaseRepository {
   final BaseService _catService = sl<BaseService>();

@@ -1,7 +1,7 @@
 import 'package:cat_gif_app/model/base_repository.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../injection_container.dart';
+import '../di/injection_container.dart';
 import '../model/api/api_response.dart';
 
 class CatViewModel with ChangeNotifier {

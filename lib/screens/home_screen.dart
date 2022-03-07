@@ -26,21 +26,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 image: AssetImage("images/background.jpg"), fit: BoxFit.cover)),
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Container(
-            margin: const EdgeInsets.only(top: 200),
             child: SizedBox(
               width: double.infinity,
-              height: 200,
-              child: Container(
-                child: getCatGif(context, _apiResponse),
-              ),
+              height: 600,
+              child: CatGif(apiResponse: _apiResponse),
             ),
           ),
-          const Spacer(),
-          ElevatedButton(
-            onPressed: () => {
-              Provider.of<CatViewModel>(context, listen: false).fetchCatData()
-            },
-            child: const Text('Meow!'),
+          Container(
+            margin: const EdgeInsets.only(bottom: 20),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(shape: const StadiumBorder()),
+              onPressed: () => {
+                Provider.of<CatViewModel>(context, listen: false).fetchCatData()
+              },
+              child: const Text('Meow!'),
+            ),
           )
         ]),
       ),
