@@ -1,31 +1,23 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cat_gif_app/bloc/bloc_cat/cat_bloc.dart';
 import 'package:cat_gif_app/components/choice_option.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../model/Cat.dart';
-import '../model/api/api_response.dart';
-import '../viewmodel/cat_view_model.dart';
 
 class CatGif extends StatelessWidget {
-  final apiResponse;
-  const CatGif({this.apiResponse, Key? key}) : super(key: key);
+  const CatGif({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    switch (apiResponse.status) {
-      case Status.INITIAL:
-        Provider.of<CatViewModel>(context, listen: false).fetchCatData();
-        return const Center(
-          child: Text('Buscando gif de gatos'),
-        );
-
-      case Status.LOADING:
+    return BlocBuilder<CatBloc, CatState>(builder: (context, state) {
+      if (state is CatLoadingState) {
         return const Center(
             child: CircularProgressIndicator(backgroundColor: Colors.grey));
+      }
 
-      case Status.COMPLETED:
-        Cat _cat = apiResponse.data as Cat;
+      if (state is CatCompletedState) {
+        Cat _cat = state.cat;
         const String _baseUrl = "https://cataas.com";
         return Column(children: [
           CachedNetworkImage(
@@ -45,15 +37,16 @@ class CatGif extends StatelessWidget {
                 )),
           )
         ]);
+      }
 
-      case Status.ERROR:
+      if (state is CatErrorState) {
+        print(state.messageError);
         return const Center(
           child: Text('Por favor intentalo denuevo!'),
         );
-      default:
-        return const Center(
-          child: Text('Por favor intentalo denuevo!'),
-        );
-    }
+      }
+
+      return Container();
+    });
   }
 }

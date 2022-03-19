@@ -1,23 +1,13 @@
+import 'package:cat_gif_app/bloc/bloc_cat/cat_bloc.dart';
 import 'package:cat_gif_app/components/cat_gif.dart';
-import 'package:cat_gif_app/model/api/api_response.dart';
-import 'package:cat_gif_app/viewmodel/cat_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
-class HomeScreen extends StatefulWidget {
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
+class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    ApiResponse _apiResponse = Provider.of<CatViewModel>(context).response;
+    context.read<CatBloc>().add(LoadCatEvent());
     return Scaffold(
       body: Container(
         constraints: const BoxConstraints.expand(),
@@ -25,19 +15,17 @@ class _HomeScreenState extends State<HomeScreen> {
             image: DecorationImage(
                 image: AssetImage("images/background.jpg"), fit: BoxFit.cover)),
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Container(
-            child: SizedBox(
-              width: double.infinity,
-              height: 600,
-              child: CatGif(apiResponse: _apiResponse),
-            ),
+          const SizedBox(
+            width: double.infinity,
+            height: 600,
+            child: CatGif(),
           ),
           Container(
             margin: const EdgeInsets.only(bottom: 20),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(shape: const StadiumBorder()),
-              onPressed: () => {
-                Provider.of<CatViewModel>(context, listen: false).fetchCatData()
+              onPressed: () {
+                context.read<CatBloc>().add(LoadCatEvent());
               },
               child: const Text('Meow!'),
             ),
